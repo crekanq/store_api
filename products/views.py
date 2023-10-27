@@ -14,3 +14,9 @@ class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializers
+    permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticatedOrReadOnly]
