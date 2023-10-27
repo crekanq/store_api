@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
 
+    'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
 ]
 
