@@ -26,8 +26,7 @@ class CartItemList(generics.ListAPIView):
     serializer_class = CartItemSerializer
 
     def get_queryset(self):
-        user = self.request.user
-        return CartItem.objects.filter(user=user)
+        return CartItem.objects.filter(user=self.request.user)
 
 
 class AddToCart(generics.CreateAPIView):
