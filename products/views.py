@@ -1,4 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
+from rest_framework import filters
 
 from .models import Product, ProductCategory, CartItem
 from .serializers import ProductCategorySerializer, ProductSerializer, CartItemSerializer, ProductDetailSerializer
@@ -13,6 +15,9 @@ class ProductCategoryListView(generics.ListAPIView):
 class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['category']
+    search_fields = ['title']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
