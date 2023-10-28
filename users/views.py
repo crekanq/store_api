@@ -3,7 +3,7 @@ from rest_framework import generics, permissions
 from .serializers import CustomUserProfileSerializers
 
 
-class CustomUserProfileListView(generics.RetrieveAPIView):
+class CustomUserProfileListView(generics.RetrieveUpdateAPIView):
     serializer_class = CustomUserProfileSerializers
     permission_classes = [permissions.IsAuthenticated]
 
