@@ -11,6 +11,19 @@ class ProductCategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     category = ProductCategorySerializer(read_only=True)
+    description = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = ['id', 'image', 'title', 'description', 'quantity', 'price', 'category']
+
+    def get_description(self, obj):
+        max_length = 100
+        return obj.description[:max_length]
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    category = ProductCategorySerializer(read_only=True)
 
     class Meta:
         model = Product
