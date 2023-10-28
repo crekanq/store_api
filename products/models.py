@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import CustomUser
+
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=250)
@@ -18,3 +20,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f'Product: {self.title} | Category: {self.category.name}'
+
+
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    quantity = models.PositiveIntegerField(default=1, null=True)
