@@ -1,15 +1,15 @@
 import stripe
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
-from rest_framework import generics, permissions
-from rest_framework import status
+from rest_framework import filters, generics, permissions, status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 from store import settings
-from .models import Product, ProductCategory, CartItem
-from .serializers import ProductCategorySerializer, ProductSerializer, CartItemSerializer, ProductDetailSerializer, \
-    CreatePaymentIntentSerializer
+
+from .models import CartItem, Product, ProductCategory
+from .serializers import (CartItemSerializer, CreatePaymentIntentSerializer,
+                          ProductCategorySerializer, ProductDetailSerializer,
+                          ProductSerializer)
 
 
 class ProductCategoryListView(generics.ListAPIView):
