@@ -129,15 +129,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-    ],
+    ),
     'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend'
     ],
-    'DEFAULT_PAGINATION_CLASS': [
+    'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.LimitOffsetPagination',
-    ],
 }
 
 # User
@@ -152,6 +151,13 @@ DJOSER = {
         'user': 'users.serializers.CustomUserSerializer',
     },
 }
+
+# Stripe
+
+STRIPE_PUBLISHABLE_KEY = \
+    'pk_test_51MvHKBES91dnZ23UjhGHd0LGC3LAmutgqulynKtiSYuKXTFd4tEmJpP1v9wJPpip9X7ChF9HHyrnru3bMmjAY87v00mQAyBvve'
+STRIPE_SECRET_KEY = \
+    'sk_test_51MvHKBES91dnZ23USLOvAhW8jhePYb0elODnNZbtLc6PrEjNuk5OUmSuOFroi2Y5EGwaYwFjglqu22ldCntVuRr500t3SVe9js'
 
 # Ckeditor
 

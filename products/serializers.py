@@ -34,3 +34,14 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ['id', 'product', 'user', 'quantity']
+
+
+class CreatePaymentIntentSerializer(serializers.Serializer):
+    product_id = serializers.IntegerField()
+
+    def validate_product_id(self, value):
+        try:
+            product = Product.objects.get(id=value)
+        except Product.DoesNotExist:
+            raise serializers.ValidationError("Product not found")
+        return product
