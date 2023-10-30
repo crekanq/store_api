@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import CartItem, Product, ProductCategory
+from .models import CartItem, Comment, Product, ProductCategory
 
 
 class ProductCategorySerializer(serializers.ModelSerializer):
@@ -22,12 +22,19 @@ class ProductSerializer(serializers.ModelSerializer):
         return obj.description[:max_length]
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'text', 'created_at']
+
+
 class ProductDetailSerializer(serializers.ModelSerializer):
     category = ProductCategorySerializer(read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
-        fields = ['id', 'image', 'title', 'description', 'quantity', 'price', 'category']
+        fields = ['id', 'image', 'title', 'description', 'quantity', 'price', 'category', 'comments']
 
 
 class CartItemSerializer(serializers.ModelSerializer):

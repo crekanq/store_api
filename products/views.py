@@ -1,4 +1,5 @@
 import stripe
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics, permissions, status
 from rest_framework.pagination import PageNumberPagination
@@ -6,8 +7,9 @@ from rest_framework.response import Response
 
 from store import settings
 
-from .models import CartItem, Product, ProductCategory
-from .serializers import (CartItemSerializer, CreatePaymentIntentSerializer,
+from .models import CartItem, Comment, Product, ProductCategory
+from .serializers import (CartItemSerializer, CommentSerializer,
+                          CreatePaymentIntentSerializer,
                           ProductCategorySerializer, ProductDetailSerializer,
                           ProductSerializer)
 
@@ -38,6 +40,17 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CommentCreateView(generics.CreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        product_id = self.kwargs['product_id']
+        product = get_object_or_404(Product, pk=product_id)
+        serializer.save(user=self.request.user, product=product)
 
 
 class CartItemList(generics.ListAPIView):
