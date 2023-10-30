@@ -23,9 +23,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='user.id')
+    username = serializers.CharField(source='user.username')
+    image = serializers.ImageField(source='user.image')
+
     class Meta:
         model = Comment
-        fields = ['id', 'text', 'created_at']
+        fields = ['id', 'username', 'image', 'text', 'created_at']
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
